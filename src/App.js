@@ -1,5 +1,9 @@
-// import * as DB from "../db/mock.json";
+import EnhancedTableHead from './components/index';
 
-const App = () => <h1>Hello World !</h1>
+const App = () => (
+	<>
+		<EnhancedTableHead />
+	</>
+);
 
 export default App;
