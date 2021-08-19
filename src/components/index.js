@@ -81,10 +81,10 @@ export default function BasicTable() {
 
 	const showUserData = (skip, limit) => {
 		return userCredentials
-			.sort((a, b) => (!sortName ? a.firstName > b.firstName : a.firstName < b.firstName))
+			.filter(details => (recognized === '' ? details : details.accountType === recognized))
 			.slice(skip, limit)
+			.sort((a, b) => (!sortName ? a.firstName > b.firstName : a.firstName < b.firstName))
 			.map(resolve => {
-				const found = userCredentials.find(details => details.accountType === recognized);
 				return (
 					<TableRow key={resolve.id}>
 						<TableCell align="right">{resolve.firstName}</TableCell>
