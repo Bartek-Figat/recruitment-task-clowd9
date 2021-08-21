@@ -19,10 +19,10 @@ const arrowBack = ({ skip, handelPrev, classes }) => {
 	);
 };
 
-const arrowForward = ({ users, limit, handelSkip, classes }) => {
+const arrowForward = ({ users, skip, rowPerPage, handelSkip, classes }) => {
 	return (
 		<Fragment>
-			{users === limit ? (
+			{users === skip + rowPerPage ? (
 				<IconButton onClick={handelSkip} disabled={true}>
 					<ArrowForwardIosIcon fontSize="small" className={classes} />
 				</IconButton>

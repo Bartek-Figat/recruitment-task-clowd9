@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
 	wrapper: {
 		width: '100vw',
@@ -18,10 +19,12 @@ const useStyles = makeStyles({
 		padding: '0.2rem'
 	},
 	arrow: {
-		marginLeft: '1rem',
+		padding: '0.1rem',
 		cursor: 'pointer'
 	},
 	button: {
 		margin: '0.5rem'
 	}
 });
+
+export { useStyles };
