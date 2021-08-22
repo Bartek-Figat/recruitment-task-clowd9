@@ -24,6 +24,13 @@ const useStyles = makeStyles({
 	},
 	button: {
 		margin: '0.5rem'
+	},
+	searchInput: {
+		width: '75%'
+	},
+	toolSelect: {
+		margin: '0.5rem',
+		width: '15%'
 	}
 });
 

@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-const arrowBack = ({ skip, handelPrev, classes }) => {
+const ArrowBack = ({ skip, handelPrev, classes }) => {
 	return (
 		<Fragment>
 			{skip > 0 ? (
@@ -19,10 +19,10 @@ const arrowBack = ({ skip, handelPrev, classes }) => {
 	);
 };
 
-const arrowForward = ({ users, skip, rowPerPage, handelSkip, classes }) => {
+const ArrowForward = ({ users, skip, rowPerPage, handelSkip, classes, limit }) => {
 	return (
 		<Fragment>
-			{users === skip + rowPerPage ? (
+			{users <= skip + rowPerPage ? (
 				<IconButton onClick={handelSkip} disabled={true}>
 					<ArrowForwardIosIcon fontSize="small" className={classes} />
 				</IconButton>
@@ -35,4 +35,4 @@ const arrowForward = ({ users, skip, rowPerPage, handelSkip, classes }) => {
 	);
 };
 
-export { arrowBack, arrowForward };
+export { ArrowBack, ArrowForward };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-no-undef */
 import React, { useEffect, useState } from 'react';
 import {
@@ -10,14 +11,12 @@ import {
 	Paper,
 	Select,
 	MenuItem,
-	Button,
-	IconButton
+	Toolbar,
+	TableSortLabel
 } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { tableRow } from './tableRow';
 import { useStyles } from './style';
-import { arrowBack, arrowForward } from './button';
+import { ArrowBack, ArrowForward } from './button';
 import data from '../db/mock.json';
 import usersAPI from '../util/index';
 
@@ -28,7 +27,7 @@ export default function BasicTable() {
 	const [skip, setSkip] = useState(0);
 	const [limit, setLimit] = useState(rowPerPage);
 	const [sortName, useSortName] = useState(false);
-	const [recognized, useRecognizedType] = useState('');
+	const [recognized, useType] = useState('');
 
 	useEffect(() => {
 		async function fetchDataFrom() {
@@ -57,9 +56,9 @@ export default function BasicTable() {
 		setRowPerPage(parseInt(target.textContent));
 	};
 
-	function HandelRecognizedType({ target }) {
-		useRecognizedType(target.textContent);
-	}
+	const handelRecognizedType = e => {
+		useType(e.target.textContent);
+	};
 
 	function HandelSortByName() {
 		return useSortName(!sortName);
@@ -87,26 +86,35 @@ export default function BasicTable() {
 	return (
 		<>
 			<TableContainer className={classes.table} component={Paper}>
-				<Button
-					className={classes.button}
-					onClick={HandelSortByName}
-					variant="contained"
-					size="small"
-					color="primary"
-				>
-					Sort by name
-				</Button>
-
-				<Select labelId="demo-simple-select-filled-label" id="demo-simple-select-filled">
-					{removeDuplicatesInAccountTypes(users).map(type => {
-						return <MenuItem onClick={HandelRecognizedType}>{type}</MenuItem>;
-					})}
-				</Select>
+				<Toolbar>
+					<Select
+						className={classes.toolSelect}
+						labelId="demo-simple-select-filled-label"
+						id="demo-simple-select-filled"
+					>
+						{removeDuplicatesInAccountTypes(users).map(type => {
+							return (
+								<MenuItem value={recognized} onClick={handelRecognizedType}>
+									{console.log(recognized)}
+									{type}
+								</MenuItem>
+							);
+						})}
+					</Select>
+				</Toolbar>
 
 				<Table className={classes.table} aria-label="simple table">
 					<TableHead>
 						<TableRow>
-							<TableCell align="right">First nad Last Name</TableCell>
+							<TableCell align="right">
+								<TableSortLabel
+									onClick={HandelSortByName}
+									direction={!sortName ? 'asc' : 'desc'}
+									active={sortName}
+								>
+									First nad Last Name
+								</TableSortLabel>
+							</TableCell>
 							<TableCell align="right">User Name</TableCell>
 							<TableCell align="right">Account Type</TableCell>
 							<TableCell align="right">Create Date</TableCell>
@@ -126,11 +134,18 @@ export default function BasicTable() {
 							})}
 						</Select>
 						<span className={classes.spanData} id="demo-simple-select-helper-label">
-							{skip} - {limit}
+							{skip} - {rowPerPage}
 						</span>
 						<span id="demo-simple-select-helper-label">of: {users.length}</span>
-						{arrowBack(skip, handelPrev, classes.arrow)}
-						{arrowForward(users.length, skip, rowPerPage, handelSkip, classes.arrow)}
+						<ArrowBack skip={skip} handelPrev={handelPrev} classes={classes.arrow} />
+						<ArrowForward
+							users={users.length}
+							skip={skip}
+							rowPerPage={rowPerPage}
+							handelSkip={handelSkip}
+							classes={classes.arrow}
+							limit={limit}
+						/>
 					</TableCell>
 				</TableHead>
 			</TableContainer>
