@@ -22,12 +22,20 @@ const ArrowBack = ({ skip, handelPrev, classes }) => {
 const ArrowForward = ({ users, skip, rowPerPage, handelSkip, classes, limit }) => {
 	return (
 		<Fragment>
-			{users <= skip + rowPerPage ? (
+			{users < rowPerPage || users <= limit ? (
 				<IconButton onClick={handelSkip} disabled={true}>
+					{console.log('Total users==1', users)}
+					{console.log('Skip==1', skip)}
+					{console.log('rowPerPage==1', rowPerPage)}
+					{console.log('limit==1', limit)}
 					<ArrowForwardIosIcon fontSize="small" className={classes} />
 				</IconButton>
 			) : (
 				<IconButton onClick={handelSkip} disabled={false}>
+					{console.log('Total users==2', users)}
+					{console.log('Skip==2', skip)}
+					{console.log('rowPerPage==2', rowPerPage)}
+					{console.log('limit==2', limit)}
 					<ArrowForwardIosIcon fontSize="small" className={classes} />
 				</IconButton>
 			)}

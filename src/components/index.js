@@ -134,7 +134,7 @@ export default function BasicTable() {
 							})}
 						</Select>
 						<span className={classes.spanData} id="demo-simple-select-helper-label">
-							{skip} - {rowPerPage}
+							{skip} - {limit}
 						</span>
 						<span id="demo-simple-select-helper-label">of: {users.length}</span>
 						<ArrowBack skip={skip} handelPrev={handelPrev} classes={classes.arrow} />
